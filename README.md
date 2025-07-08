@@ -54,8 +54,6 @@ A full-stack application that allows users to upload 3D models, configure print 
 
 ---
 
-##  How to Run Locally
-
 
 
 author built by samhita prakash
