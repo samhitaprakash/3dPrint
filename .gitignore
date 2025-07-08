@@ -1,0 +1,4 @@
+# Ignore backend node_modules and env
+/3d-print-backend/node_modules/
+/3d-print-backend/.env
+.DS_Store
