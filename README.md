@@ -1,10 +1,10 @@
-# 🖨️ 3D Print Order Platform
+# 3D Print Order Platform
 
 A full-stack application that allows users to upload 3D models, configure print options, and place custom print orders. Built to demonstrate real-world skills in building full-stack, client-ready platforms.
 
 ---
 
-## 🧠 Overview
+##  Overview
 
 > Frontend: HTML, CSS, JavaScript  
 > Backend: Node.js, Express  
@@ -13,7 +13,7 @@ A full-stack application that allows users to upload 3D models, configure print 
 
 ---
 
-## 🔧 Features
+##  Features
 
 - ✅ Upload STL file names (simulated)
 - ✅ Select technology, material, color, finish
@@ -25,7 +25,7 @@ A full-stack application that allows users to upload 3D models, configure print 
 
 ---
 
-## 📂 Folder Structure
+##  Folder Structure
 
 3d-print-platform/
 ├── 3d-print-frontend/ # HTML, CSS, JS files
@@ -47,7 +47,7 @@ A full-stack application that allows users to upload 3D models, configure print 
 yaml
 Copy code
 
-## 🔗 Live Links
+##  Live Links
 
 - **Frontend:** [https://3d-print-platform.vercel.app](https://3d-print-platform.vercel.app)  
 - **Backend API:** [https://threed-print-backend.onrender.com](https://threed-print-backend.onrender.com)
@@ -56,7 +56,7 @@ Copy code
 
 ---
 
-## 💻 How to Run Locally
+##  How to Run Locally
 
 ### 1. Clone the repo:
 ```bash
