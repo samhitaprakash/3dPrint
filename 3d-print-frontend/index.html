@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Print Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Navbar -->
+   <div class="navbar">
+  <div class="nav-left">
+    <div class="logo">3DQuickPrint</div>
+  </div>
+
+  <div class="nav-right">
+    <div class="nav-item"><a href="#uploadSection">Home</a></div>
+    <div class="nav-item"><a href="#" onclick="fetchOrderHistory(); toggleOrderHistory()">Orders</a></div>
+    <div class="nav-item"><a href="#uploadSection">Files</a></div>
+    <div class="nav-item"><a href="signin.html">Sign In</a></div>
+    <div class="nav-item nav-cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <a href="signin.html">Cart</a>
+    </div>
+  </div>
+</div>
+
+    <!-- Upload Section -->
+     <div class="form-background-wrapper">
+    <section class="upload-area">
+        <div class="upload-box">
+            <!-- Model Info Preview Section (hidden initially) -->
+            <div id="modelInfoSection" style="display: none;">
+                <div class="preview-stats-wrapper">
+                    <div id="previewCanvas" class="preview-box"></div>
+                    <div class="model-stats-box">
+                        <div class="units">
+                            <label>File Unit:</label>
+                            <input type="radio" name="unit" value="mm" checked> mm
+                            <input type="radio" name="unit" value="inch"> inch
+                        </div>
+                        <div class="rotation">
+                            <label for="rotationX">Rotate X (°):</label>
+                            <input type="number" class="rotation-x" min="0" max="360" value="0" />
+
+                            <label for="rotationY">Rotate Y (°):</label>
+                            <input type="number" class="rotation-y" min="0" max="360" value="0" />
+                            <button onclick="resetRotation()">Reset Rotation</button>
+                        </div>
+                        <p class="warning">⚠️<strong>Print risk></strong></p>
+                        <table class="model-stats">
+                            <tr>
+                              <td><strong>Material Volume:</strong></td>
+                              <td id="volumeCell">-</td>
+                            </tr>
+                             <tr>
+                               <td><strong>Model Dimensions:</strong></td>
+                               <td id="dimensionCell">–</td>
+                             </tr>
+                             <tr>
+                               <td><strong>Print Time (hh:mm:ss):</strong></td>
+                               <td id="printTimeCell">–</td>
+                             </tr>
+                        </table> 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload button + file input -->
+            <button class="upload-btn" id="uploadTrigger">
+                <i class="fas fa-upload"></i> Upload 3D File
+            </button>
+            <input type="file" id="fileUpload" accept=".stl,.step,.stp" multiple hidden />
+                 <p class="upload-info">
+                   Supported files: <span class="modal-trigger">STL, STP, and more…</span>
+                </p>
+
+            <!-- Modal for supported file info -->
+            <div id="fileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Supported 3D files</h3>
+                    <p><strong>File types:</strong> STL (Recommended), STP, STEP, OBJ</p>
+                    <p><strong>Color prints:</strong> Use 3MF</p>
+                    <p><strong>Design rules:</strong> Wall > 1.2mm, Smallest part ≥ 0.8mm</p>
+                    <p><strong>Max file size:</strong> 100 MB</p>
+                </div>
+            </div>
+
+            <!-- Upload section footer -->
+            <div class="upload-footer">
+                <a href="#">3D Printing Guide</a>
+                <span><i class="fa-solid fa-lock"></i> All uploads are secure and confidential.</span>
+            </div>
+        </div>
+
+        <!-- Customize Options Section -->
+        <div class="customize-wrapper">
+            <div class="customize-header">
+                <h3>Customize Your 3D Print</h3>
+                <button id="toggleCustomize" class="toggle-btn">
+                    <span id="toggleText">Expand</span>
+                    <span id="arrow"><i class="fa fa-chevron-down"></i></span>
+                </button>
+                  </div>
+        <div id="orderOptions" style="display: none;">
+        <div class="order-form">
+          <!-- Row: 3D Technology -->
+          <div class="form-row">
+            <label>3D Technology</label>
+            <div class="form-control tech-options">
+              <button class="btn"  data-tech="SLA(Resin)">SLA(Resin)</button>
+              <button class="btn"  data-tech="MJF(Nylon)">MJF(Nylon)</button>
+              <button class="btn"  data-tech="SLM(Metal)">SLM(Metal)</button>
+              <button class="btn"  data-tech="FDM(Plastic)">FDM(Plastic)</button>
+              <button class="btn"  data-tech="SLS(Nylon)">SLS(Nylon)</button>
+              <button class="btn"  data-tech="WJP(Resin)">WJP(Resin)</button>
+            </div>
+          </div>
+        
+          <!-- Row: Material -->
+          <div class="form-row">
+            <label>Material</label>
+            <div class="form-control material-options">
+              <button class="btn"  data-material="9600 Resin">9600 Resin</button>
+              <button class="btn"  data-material="Black Resin">Black Resin</button>
+              <button class="btn"  data-material="Imagine Black">Imagine Black</button>
+              <button class="btn"  data-material="Grey Resin">Grey Resin</button>
+              <button class="btn"  data-material="8001 Resin">8001 Resin</button>
+            </div>
+          </div>
+        
+          <!-- Row: Color -->
+          <div class="form-row">
+            <label>Color</label>
+            <div class="form-control color-options">
+              <button class="btn" data-color="Matte White">Matte White</button>
+              <button class="btn" data-color="Grey">Grey</button>
+              <button class="btn" data-color="Black">Black</button>
+            </div>
+          </div>
+        
+          <!-- Row: Surface Finish -->
+          <div class="form-row">
+            <label>Surface Finish</label>
+            <div class="form-control">
+              <button type="button" class="btn surface-toggle" data-value="yes">Yes</button>
+              <button type="button" class="btn surface-toggle" data-value="no">No</button>
+            </div>
+          </div>
+        
+          <!-- Row: Finish Type Dropdown -->
+          <div class="surface-section hidden">
+            <div class="form-row">
+              <label for="finishType">Finish Type</label>
+              <div class="form-control">
+                <select id="finishType">
+                  <option>Sanding</option>
+                  <option>Polishing</option>
+                  <option>Spray Paint</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Row: General Sanding -->
+          <div class="form-row">
+            <label></label>
+            <div class="form-control">
+              <label><input type="checkbox" /> General Sanding</label>
+            </div>
+          </div>
+        
+          <!-- Row: Quantity -->
+          <div class="form-row">
+            <label>Qty</label>
+            <div class="form-control">
+              <input type="number" id="quantityInput" min="1" value="1" />
+            </div>
+          </div>
+        
+          <!-- Row: Product Description -->
+          <div class="form-row">
+            <label>Product Desc</label>
+            <div class="form-control">
+              <select>
+                <option>Select</option>
+                <option>Description 1</option>
+                <option>Description 2</option>
+              </select>
+            </div>
+          </div>
+        
+          <!-- Row: Price -->
+          <div class="form-row">
+            <label>Price</label>
+            <div class="form-control">
+              <span id="priceValue" style="color: #e4b56f ; font-weight: bold;">0.00</span>
+            </div>
+          </div>
+        
+          <!-- Row: 3D Remark -->
+          <div class="form-row">
+            <label>3D Remark</label>
+            <div class="form-control">
+              <i class="fa fa-pencil toggle-remark" title="Add Remark"></i>
+              <textarea id="remarkTextarea" style="display: none;" placeholder="Enter your remark..."></textarea>
+            </div>
+          </div>
+        </div>
+    </div>
+        
+                       
+        
+                  <!-- Add to Cart Button -->
+            <button id="addToCartBtn" class="add-to-cart">Add to Cart</button>
+
+            
+              <button id="orderNowBtn" class="add-to-cart">Order Now</button>
+            
+
+        </div>
+    </section>
+    <section id="orderHistorySection">
+      <h3>Order History</h3>
+      <div id="orderHistoryList" class="order-list"></div>
+    </section>
+    <button id="toggleHistoryBtn"  class="btn order-history-btn" onclick="fetchOrderHistory()">View Order History</button>
+
+
+    </div>
+     <!-- Loading Overlay -->
+    <div id="loaderOverlay" class="loader-overlay" style="display: none;">
+      <div class="spinner"></div>
+      <p class="loader-text">Analyzing your 3D model...</p>
+    </div>
+    <div id="toast" class="toast"></div>
+    <!-- Script -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
