@@ -56,10 +56,7 @@ A full-stack application that allows users to upload 3D models, configure print 
 
 ##  How to Run Locally
 
-### 1. Clone the repo:
-```bash
-git clone https://github.com/yourusername/3d-print-platform.git
-cd 3d-print-platform
+
 
 author built by samhita prakash
 
