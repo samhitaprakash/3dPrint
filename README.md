@@ -15,13 +15,13 @@ A full-stack application that allows users to upload 3D models, configure print 
 
 ##  Features
 
-- ✅ Upload STL file names (simulated)
-- ✅ Select technology, material, color, finish
-- ✅ Dynamic price calculation
-- ✅ Custom remarks field
-- ✅ Submit order with a click
-- ✅ View order history (from database)
-- ✅ Clean responsive UI
+-  Upload STL file names (simulated)
+-  Select technology, material, color, finish
+-  Dynamic price calculation
+-  Custom remarks field
+-  Submit order with a click
+-  View order history (from database)
+-  Clean responsive UI
 
 ---
 
@@ -44,8 +44,6 @@ A full-stack application that allows users to upload 3D models, configure print 
 ├── .gitignore
 └── README.md 👈 You are here
 
-yaml
-Copy code
 
 ##  Live Links
 
